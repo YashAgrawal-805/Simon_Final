@@ -1,5 +1,13 @@
 var level_number = 1;
-
+input = [1];
+function user_check(input){
+    if(input.length===level_number){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 function arraysMatch(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
     for (let i = 0; i < arr1.length; i++) {
@@ -40,34 +48,41 @@ if (document.querySelector("h1").textContent === "Press START to play game") {
         for (let i = 0; i < 4; i++) {
             (function (index) { // Use a closure to capture the correct index
                 items[index].addEventListener("click", function () {
-                    items[index].classList.add("button-new");
-                    var audio = new Audio("button-" + index + ".mp3");
-                    audio.play();
-                    setTimeout(function () {
-                        items[index].classList.remove("button-new");
-                    }, 100);
-                    output.push(index);
-                    if (arraysMatch(input, output)) {
-                        level_number = level_number + 1;
-                        document.querySelector("h1").innerHTML = "LEVEL - " + level_number+"<br>WAIT TILL PATTERN IS GENERATING";
-                        console.log(input + "/" + output);
-                    }
-                    if (input.length === output.length) {
-                        if (!arraysMatch(input, output)) {
-                            var audio = new Audio("wrong.mp3");
-                            audio.play();
-                            document.querySelector("body").style.backgroundColor = "red";
-                            setTimeout(function(){document.querySelector("body").style.backgroundColor = "#061c39";},200)
-                            level_number = 0;
-                            document.querySelector("h1").innerHTML = "YOU LOST!!<br>PRESS A KEY";
-                        }
+                    a = user_check(input);
+                    if(a){
+                        items[index].classList.add("button-new");
+                        var audio = new Audio("button-" + index + ".mp3");
+                        audio.play();
                         setTimeout(function () {
-                            input = problem_generator(level_number);
-                        }, 1000);
-                        output = [];
+                            items[index].classList.remove("button-new");
+                        }, 100);
+                        output.push(index);
+                        if (arraysMatch(input, output)){
+                            level_number = level_number + 1;
+                            document.querySelector("h1").innerHTML = "LEVEL - " + level_number+"<br>WAIT TILL PATTERN IS GENERATING";
+                            console.log(input + "/" + output);
+                        }
+                        if (input.length === output.length){
+                            if (!arraysMatch(input, output)) {
+                                var audio = new Audio("wrong.mp3");
+                                audio.play();
+                                document.querySelector("body").style.backgroundColor = "red";
+                                setTimeout(function(){document.querySelector("body").style.backgroundColor = "#061c39";},200)
+                                level_number = 0;
+                                document.querySelector("h1").innerHTML = "YOU LOST!!<br>PRESS A KEY";
+                                location.reload();
+                            }
+                            setTimeout(function () {
+                                input = problem_generator(level_number);
+                            }, 1000);
+                            output = [];
+                            
+                        }
                     }
                 });
             })(i);
         }
+        
+        
     });
 }
