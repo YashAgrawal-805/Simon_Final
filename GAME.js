@@ -54,6 +54,10 @@ if (document.querySelector("h1").textContent === "Press START to play game") {
                     }
                     if (input.length === output.length) {
                         if (!arraysMatch(input, output)) {
+                            var audio = new Audio("wrong.mp3");
+                            audio.play();
+                            document.querySelector("body").style.backgroundColor = "red";
+                            setTimeout(function(){document.querySelector("body").style.backgroundColor = "#061c39";},200)
                             level_number = 0;
                             document.querySelector("h1").innerHTML = "YOU LOST!!<br>PRESS A KEY";
                         }
