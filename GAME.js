@@ -70,8 +70,9 @@ if (document.querySelector("h1").textContent === "Press START to play game") {
                                 setTimeout(function(){document.querySelector("body").style.backgroundColor = "#061c39";},200)
                                 level_number = 0;
                                 document.querySelector("h1").innerHTML = "YOU LOST!!<br>PRESS A KEY";
-                                location.reload();
+                                setTimeout(function(){location.reload();},1000);
                             }
+
                             setTimeout(function () {
                                 input = problem_generator(level_number);
                             }, 1000);
