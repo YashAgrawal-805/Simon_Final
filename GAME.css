@@ -3,7 +3,7 @@
     src: url('/home/kavi/Desktop/Webdev/Work/GAME/PressStart2P.ttf');
 }
 html, body {
-    overflow: hidden;
+    overflow-y: hidden;
   }
 body{
     display: flex;
